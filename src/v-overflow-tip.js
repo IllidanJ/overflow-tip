@@ -7,18 +7,18 @@ const directive = {
   handleCellMouseEnter(event) {
     const cellChild = event.target
     if (cellChild.scrollWidth > cellChild.offsetWidth) {
-      cellChild._tippyInstance?.show()
+      cellChild._tippyInstance && cellChild._tippyInstance.show()
     }
   },
   handleCellMouseLeave(event) {
     const cellChild = event.target
-    cellChild._tippyInstance?.hide()
+    cellChild._tippyInstance && cellChild._tippyInstance.hide()
   },
   componentUpdated(el, binding) {
     init(el, binding)
   },
   unbind(el) {
-    el._tippyInstance?.destroy()
+    el._tippyInstance && el._tippyInstance.destroy()
   }
 }
 function init(el, binding) {
