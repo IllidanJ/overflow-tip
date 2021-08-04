@@ -1,5 +1,10 @@
 import tippy from 'tippy.js'
 import 'tippy.js/dist/tippy.css'
+const defaultOptions = {
+  trigger: 'manual',
+  placement: 'top-start',
+  maxWidth: 'none'
+}
 const directive = {
   inserted(el, binding) {
     init(el, binding)
@@ -23,11 +28,12 @@ const directive = {
 }
 function init(el, binding) {
   if (el.scrollWidth <= el.offsetWidth) return
-  const tippyOptions = {
-    content: binding.value,
-    trigger: 'manual',
-    placement: 'top-start'
-  }
+  const customOptions =
+    typeof binding.value === 'object'
+      ? binding.value
+      : { content: binding.value }
+  const tippyOptions = Object.assign({}, defaultOptions, customOptions)
+
   el._tippyInstance = tippy(el)
   el._tippyInstance.setProps(tippyOptions)
   el.addEventListener('mouseenter', directive.handleCellMouseEnter)
